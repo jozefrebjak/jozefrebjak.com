@@ -1,0 +1,195 @@
+# Translations for Slovak
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === baseof ==
+[backToTop]
+other = "Späť na začiatok"
+
+[viewComments]
+other = "Zobraziť komentáre"
+# === baseof ==
+
+# === Post ===
+[posts]
+other = "Príspevky"
+# === Post ===
+
+# === Taxonomy ===
+[allSome]
+other = "Všetky {{ .Some }}"
+
+[tag]
+other = "Značka"
+
+[tags]
+other = "Značky"
+
+[category]
+other = "Kategória"
+
+[categories]
+other = "Kategórie"
+# === Taxonomy ===
+
+# === Pagination ===
+[more]
+other = "Viac"
+# === Pagination ===
+
+# === partials/header.html ===
+[selectLanguage]
+other = "Zvoľ jazyk"
+
+[switchTheme]
+other = "Prepnúť tému"
+# === partials/header.html ===
+
+# === partials/footer.html ===
+[poweredBySome]
+other = "Poháňa {{ .Hugo }} | Téma - {{ .Theme }}"
+# === partials/footer.html ===
+
+# === partials/comment.html ===
+[valineLang]
+other = "sk"
+
+[valinePlaceholder]
+other = "Tvoj komentár ..."
+
+[facebookLanguageCode]
+other = "sk_SK"
+# === partials/comment.html ===
+
+# === partials/assets.html ===
+[search]
+other = "Vyhľadávanie"
+
+[searchPlaceholder]
+other = "Hľadať tituly alebo obsah ..."
+
+[clear]
+other = "Vymazať"
+
+[cancel]
+other = "Zrušiť"
+
+[noResultsFound]
+other = "Neboli nájdené žiadne výsledky"
+
+[lunrLanguageCode]
+other = "sk"
+
+[copyToClipboard]
+other = "Skopírovať do schránky"
+
+[cookieconsentMessage]
+other = "Táto webová stránka používa súbory cookie na zlepšenie vašich služieb."
+
+[cookieconsentDismiss]
+other = "Mám to!"
+
+[cookieconsentLink]
+other = "Dozvedieť sa viac"
+# === partials/assets.html ===
+
+# === partials/plugin/share.html ===
+[shareOn]
+other = "Zdieľať na"
+# === partials/plugin/share.html ===
+
+# === posts/single.html ===
+[contents]
+other = "Obsah"
+
+[publishedOnDate]
+other = "zverejnené dňa {{ .Date }}"
+
+[includedInCategories]
+other = "zahrnuté v {{ .Categories }}"
+
+[wordCount]
+one = "Jedno slovo"
+other = "{{ .Count }} slov"
+
+[readingTime]
+one = "Jedna minúta"
+other = "{{ .Count }} minút"
+
+[views]
+other = "počet zhliadnutí"
+
+[author]
+other = "Autor"
+
+[updatedOnDate]
+other = "Aktualizované dňa {{ .Date }}"
+
+[readMarkdown]
+other = "Prečítajte si Markdown"
+
+[back]
+other = "Späť"
+
+[home]
+other = "Domov"
+
+[readMore]
+other = "Čítaj viac"
+# === posts/single.html ===
+
+# === 404.html ===
+[pageNotFound]
+other = "Stránka nenájdená"
+
+[pageNotFoundText]
+other = "Stránka, ktorú hľadáte, neexistuje. Prepáčte."
+# === 404.html ===
+
+# === shortcodes/admonition.html ===
+[note]
+other = "Poznámka"
+
+[abstract]
+other = "Abstrakt"
+
+[info]
+other = "Info"
+
+[tip]
+other = "Tip"
+
+[success]
+other = "Úspech"
+
+[question]
+other = "Otázka"
+
+[warning]
+other = "Pozor"
+
+[failure]
+other = "Zlyhanie"
+
+[danger]
+other = "Nebezpečenstvo"
+
+[bug]
+other = "Bug"
+
+[example]
+other = "Príklad"
+
+[quote]
+other = "Citát"
+# === shortcodes/admonition.html ===
+
+# === shortcodes/version.html ===
+[new]
+other = "NOVÝ"
+
+[changed]
+other = "ZMENENÉ"
+
+[deleted]
+other = "VYMAZANÉ"
+# === shortcodes/version.html ===
