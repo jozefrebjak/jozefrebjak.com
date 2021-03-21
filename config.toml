@@ -10,7 +10,6 @@ theme = "CodeIT"
     title = "Jozef Rebjak"
     languageCode = "en"
     languageName = "English"
-    googleAnalytics = "UA-192709345-1"
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     [[languages.en.menu.main]]
       identifier = "posts"
@@ -111,7 +110,6 @@ theme = "CodeIT"
     title = "Jozef Rebjak"
     languageCode = "sk"
     languageName = "Slovensky"
-    googleAnalytics = "UA-192709345-1"
     [[languages.sk.menu.main]]
       identifier = "posts"
       pre = ""
@@ -341,6 +339,14 @@ theme = "CodeIT"
     cursorChar = "|"
     # cursor duration after typing finishing (measured in milliseconds, "-1" means unlimited)
     duration = -1
+
+  # Analytics config
+  [params.analytics]
+    enable = true
+    [params.analytics.google]
+      id = "G-XEGDBQE4ZL"
+      # whether to anonymize IP
+      anonymizeIP = true
 
   #  Compatibility config
   [params.compatibility]
