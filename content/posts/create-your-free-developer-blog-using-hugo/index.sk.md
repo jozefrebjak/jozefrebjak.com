@@ -190,11 +190,11 @@ Watching for changes in /Users/USER/example.com/{archetypes,content,data,layouts
 Watching for config changes in /Users/USER/example.com/config.toml
 Environment: "development"
 Serving pages from memory
-Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
+Web Server is available at localhost:1313
 Press Ctrl+C to stop
 ```
 
-Prejdite na adresu {{< link "http://localhost:1313" >}} a pozrite si svoju bežiacu stránku.
+Prejdite na adresu {{< link "localhost:1313" >}} a pozrite si svoju bežiacu stránku.
 
 {{< figure src="new-hugo-site.png" >}}
 

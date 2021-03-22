@@ -1,5 +1,6 @@
 baseURL = "https://jozefrebjak,com/"
 defaultContentLanguage = "en"
+enableRobotsTXT = true
 enableGitInfo = true
 enableEmoji = true
 theme = "CodeIT"
@@ -45,7 +46,7 @@ theme = "CodeIT"
       weight = 4
     [languages.en.params]
       # site description
-      description = "Jozef Rebjak's personal website"
+      description = "Jozef Rebjak's personal website about open-source software including databases, operating systems, containers, and middleware as well as open-source tools for analytics, virtualization, and development in technology."
       # site keywords
       keywords = ["Jozef Rebjak", "Hugo", "IT", "Blog"]
       # App icon config
@@ -144,7 +145,7 @@ theme = "CodeIT"
       weight = 4
     [languages.sk.params]
       # site description
-      description = "Osobná webová stránka Jozefa Rebjaka"
+      description = "Osobná webová stránka Jozefa Rebjaka o open-source softvéri vrátane databáz, operačných systémov, kontajnerov a middleware, ako aj o open-source nástrojoch na analýzu, virtualizáciu a technologický vývoj."
       # site keywords
       keywords = ["Jozef Rebjak", "Hugo", "IT", "Blog"]
       # App icon config
