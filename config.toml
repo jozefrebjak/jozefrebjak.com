@@ -47,7 +47,7 @@ theme = "CodeIT"
       # site description
       description = "Jozef Rebjak's personal website"
       # site keywords
-      keywords = ["Jozef Rebjak", "IT", "Blog"]
+      keywords = ["Jozef Rebjak", "Hugo", "IT", "Blog"]
       # App icon config
       [languages.en.params.app]
         # optional site title override for the app when added to an iOS home screen or Android launcher
@@ -146,7 +146,7 @@ theme = "CodeIT"
       # site description
       description = "Osobná webová stránka Jozefa Rebjaka"
       # site keywords
-      keywords = ["Jozef Rebjak", "IT", "Blog"]
+      keywords = ["Jozef Rebjak", "Hugo", "IT", "Blog"]
       # App icon config
       [languages.sk.params.app]
         # optional site title override for the app when added to an iOS home screen or Android launcher
