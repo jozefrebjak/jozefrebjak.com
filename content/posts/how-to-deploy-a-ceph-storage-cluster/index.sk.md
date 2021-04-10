@@ -5,7 +5,7 @@ resources:
     src: 'featured-image-sk.png'
 categories: ['documentation']
 tags: ['ceph', 'installation']
-date: 2021-04-02T09:31:44+01:00
+date: 2021-04-10T09:31:44+01:00
 draft: false
 ---
 
@@ -18,7 +18,7 @@ draft: false
 Klaster úložiska Ceph pozostáva z viacerých typov démonov:
 
 1. Ceph Monitor
-2. Ceph OSD Daemon
+2. Ceph OSD
 3. Ceph Manager
 4. Ceph Metadata Server
 
@@ -26,7 +26,7 @@ Klaster úložiska Ceph pozostáva z viacerých typov démonov:
 
 **Ceph Monitor** udržuje hlavnú kópiu mapy klastra. Klaster monitorov Ceph zaisťuje vysokú dostupnosť v prípade zlyhania démona monitora. Klienti úložného klastra načítajú kópiu mapy klastra z monitora Ceph. Mali by existovať minimálne tri inštancie, aby sa udržalo kvórum. Ak sú iba dve, je ľahké sa dostať do situácie s rozdeleným mozgom, z ktorej sa dá ťažko zotaviť. Ak existuje iba jeden a prejde do režimu offline, je offline aj celý klaster Ceph.
 
-**Ceph OSD Daemon** (ceph-osd)
+**Ceph OSD** (ceph-osd)
 
 **Ceph OSD** kontroluje svoj vlastný stav a stav ostatných OSD a podáva správy monitorom. Každý OSD démon je priradený ku konkrétnej inštancii úložiska blokov. Takže ak máme tri servery Ceph a každý z nich má pripojené dva pevné disky na použitie s Ceph, potom bude mať každý server Ceph dva procesy OSD démonov, teda celkovo šesť klastrov OSD démonov.
 
@@ -36,13 +36,13 @@ Klaster úložiska Ceph pozostáva z viacerých typov démonov:
 
 **Ceph Manager** (ceph-mgr)
 
-**Ceph Manager** slúži ako koncový bod pre monitorovanie, orchestráciu a zásuvné moduly. Zatiaľ čo monitory Ceph používajú na udržanie konzistentnosti kvóra, Ceph manažéri používajú mechanizmus aktívneho pohotovostného režimu. Aktívny je vždy iba jeden Manager démon. V prípade, že aktívny démon prejde do režimu offline, okamžite ho prevezme jedna z pohotovostných inštancií. Technicky stačia dve inštancie správcu, pretože vždy je aktívna iba jedna, je však dobré spustiť inštanciu na každom systéme, na ktorom je spustený Ceph Monitor.
+**Ceph Manager** slúži ako koncový bod pre monitorovanie, orchestráciu a zásuvné moduly. Zatiaľ čo monitory Ceph používajú na udržanie konzistentnosti kvórum, Ceph manažéri používajú mechanizmus aktívneho pohotovostného režimu. Aktívny je vždy iba jeden Manager démon. V prípade, že aktívny démon prejde do režimu offline, okamžite ho prevezme jedna z pohotovostných inštancií. Technicky stačia dve inštancie správcu, pretože vždy je aktívna iba jedna, je však dobré spustiť inštanciu na každom systéme, na ktorom je spustený Ceph Monitor.
 
 **Ceph Metadata Server** (ceph-mds)
 
 **Ceph Metadata Server** (MDS) spravuje súborové metadáta, keď sa na poskytovanie súborových služieb používa CephFS.
 
-Klienti úložiska Ceph a každý démon Ceph OSD používajú algoritmus **CRUSH** na efektívne počítanie informácií o umiestnení údajov namiesto toho, aby boli závislí od centrálnej vyhľadávacej tabuľky.
+Klienti úložiska Ceph a každý démon Ceph OSD používajú algoritmus {{< link href="https://docs.ceph.com/en/latest/rados/operations/crush-map/" content=CRUSH >}} na efektívne počítanie informácií o umiestnení údajov namiesto toho, aby boli závislí od centrálnej vyhľadávacej tabuľky.
 
 {{< admonition type=info open=true >}}
 Ak sa chcete dozvedieť viac, prosím prečítajte si oficiálnu {{< link href="https://docs.ceph.com/en/latest/architecture/" content=dokumentáciu >}}.
@@ -50,15 +50,15 @@ Ak sa chcete dozvedieť viac, prosím prečítajte si oficiálnu {{< link href="
 
 Systém súborov, úložisko objektov a blokové zariadenia čítajú a zapisujú údaje do a a z úložného klastra. V predvolenom nastavení sú hranice hostiteľa najvyššou prioritou, pričom dve kópie sa uložia v OSD, ktoré sú na rôznych hostiteľoch.
 
-Napríklad `block-1` bude existovať na hostiteľoch `A`, `B` a `C`. Dôvod, prečo je také dôležité mať aspoň troch hostiteľov, je taký, aby bolo možné určiť integritu údajov, ktoré musí Ceph dosiahnuť. Ak sa `block-1` na hostiteľovi `A` poškodí, Ceph to dokáže zistiť a opraviť, pretože `block-1` na hostiteľoch `B` a `C` sa zhoduje s tým na hostitelovi `A`.
+Napríklad `block-1` bude existovať na uzloch `A`, `B` a `C`. Dôvod, prečo je také dôležité mať aspoň tri uzly, je taký aby bolo možné určiť integritu údajov, ktoré musí Ceph dosiahnuť. Ak sa `block-1` na uzle `A` poškodí, Ceph to dokáže zistiť a opraviť, pretože `block-1` na uzle `B` a `C` sa zhoduje s tým na uzle `A`.
 
-Ak sú hostitelia iba dvaja, potom je podstatne ťažšie a niekedy nemožné určiť, ktorý blok je v prípade sporu správny. To tiež znamená, že ak chceme `5TB` použiteľného úložiska, budeme potrebovať `15TB` surového (RAW) úložiska distribuovaného ako `5TB` na každom zo serverov Ceph.
+Ak sú uzly iba dva, potom je podstatne ťažšie a niekedy nemožné určiť, ktorý blok je v prípade sporu správny. To tiež znamená, že ak chceme `5TB` použiteľného úložiska, budeme potrebovať `15TB` surového (RAW) úložiska distribuovaného ako `5TB` na každom zo serverov Ceph.
 
 `OSD` maju vlastný formát disku, ktorý sa nazýva `Bluestore`, a priradenie OSD ID k bloku zariadenia sa dosahuje pomocou `LVM` a `Device Mapper`. To znamená, že ak nakoniec zamiešame disky v jednom systéme, OSD ID na blokoch zariadenia sa zachová. To je obzvlášť užitočné pri používaní diskov pripojených cez USB.
 
 ## Vytvorenie klastra Ceph Pacific
 
-Pre začiatok a vyskúšanie si toho ako to vlastne celé funguje potrebujeme pre LAB v podstate 3 uzly (nody). V našom prípade použijeme virtuálne servery v prostredí VMware.
+Pre začiatok a vyskúšanie si toho ako to vlastne celé funguje potrebujeme pre LAB v podstate 3 uzly. V našom prípade použijeme virtuálne servery v prostredí VMware.
 
 Každý server bude mať minimálne virtuálne prostriedky:
 
@@ -75,7 +75,7 @@ Každý server bude mať minimálne virtuálne prostriedky:
 
 ### Príprava
 
-Pred spustením Ceph klastra sa uistime, že v každom systéme, ktorý bude serverom Ceph, máme nainštalované závislosti:
+Pred spustením Ceph klastra sa uistíme, že v každom systéme, ktorý bude serverom Ceph, máme nainštalované závislosti:
 
 - Systemd
 - Podman alebo Docker na prevádzkovanie kontajnerov
@@ -90,7 +90,7 @@ Prihlásime sa do ceph-node-01, krorý bude náš ADMIN uzol pomocou SSH:
 ssh root@ceph-node-01
 ```
 
-Aktualizujeme súbor `/etc/hosts` položkami pre všetky adresy IP a názvy hostiteľov.
+Aktualizujeme súbor `/etc/hosts` položkami pre všetky adresy IP a názvy uzlov.
 
 ```sh
 10.99.107.81  ceph-node-01
@@ -104,7 +104,7 @@ Aktualizujeme OS:
 apt update && apt -y upgrade
 ```
 
-Nainštalujeme Ansible a ďalšie základné pomocné programy:
+Nainštalujeme ansible a ďalšie základné pomocné programy:
 
 ```sh
 apt update
@@ -191,13 +191,13 @@ Upravíme obsah nižšie, aby sme mali správne časové pásmo a pridali ho do 
         apt install -qq -y docker-ce docker-ce-cli containerd.io
 ```
 
-Vytvoríme súbor inventára:
+Vytvoríme súbor ansible inventára:
 
 ```sh
 nano hosts
 ```
 
-Pripravíme inventár:
+Pripravíme anbsible inventár:
 
 ```sh
 [ceph_nodes]
@@ -219,7 +219,7 @@ Host *
 EOF
 ```
 
-Spustíme Ansible príručku ktorá nainštaluje na všetky uzly `Chrony` (TZ Europe/Bratislava) a `Docker`:
+Spustíme ansible príručku ktorá nainštaluje na všetky uzly `Chrony` (TZ Europe/Bratislava) a `Docker`:
 
 ```sh
 ansible-playbook -i hosts prepare-ceph-nodes.yml --private-key ~/.ssh/id_rsa
@@ -231,7 +231,7 @@ Aktualizujeme `/etc/hosts` na všetkých uzloch pomocou Ansible:
 nano update-hosts.yml
 ```
 
-Pripravíme príručku:
+Pripravíme ansible príručku:
 
 ```yaml
 ---
@@ -262,7 +262,7 @@ ansible-playbook -i hosts update-hosts.yml --private-key ~/.ssh/id_rsa
 ```
 
 {{< admonition type=success open=true >}}
-V tejto chvili mame pripravene uzly pre Ceph Cluster! Zvyšok už nebude takto náročný.
+V tejto chvili máme pripravené uzly pre Ceph Cluster! Zvyšok už nebude takto náročný.
 {{< /admonition >}}
 
 ### Inštalácia
@@ -330,12 +330,12 @@ cephadm bootstrap \
 	--mon-ip 10.99.107.81 \
 	--initial-dashboard-user admin \
 	--initial-dashboard-password Str0ngAdminP@ssw0rd \
-    --apply-spec cluster.yml
+  --apply-spec cluster.yml
 ```
 
 Tento príkaz:
 
-- Vytvorí démona `ceph-mon`, `ceph-mgr`, `ceph-osd` pre nový klaster na všetkych hostiteľoch.
+- Vytvorí démona `ceph-mon`, `ceph-mgr`, `ceph-osd` pre nový klaster na všetkych uzloch.
 - Vygeneruje nový kľúč SSH pre klaster Ceph a pridá ho do súboru `/root/.ssh/authorized_keys` používateľa root.
 - Vytvorí minimálny konfiguračný súbor potrebný na komunikáciu s novým klastrom do súboru `/etc/ceph/ceph.conf`.
 - Vytvorí kópiu administratívneho (privilegovaného!) Tajného kľúča `client.admin` pre `/etc/ceph/ceph.client.admin.keyring`.
@@ -365,20 +365,20 @@ For more information see:
 
 Ak je všetko splnené a Bootstrap prebehol úspešne môžeme nainštalovať nástroje potrebné pre CEPH:
 
-Môžeme si nainštalovať balík ceph-common, ktorý obsahuje všetky príkazy ceph, vrátane ceph, rbd, mount.ceph (na pripojenie súborových systémov CephFS) atď .:
+Nainštalujeme balík **ceph-common**, ktorý obsahuje všetky príkazy ceph, vrátane ceph, rbd, mount.ceph (na pripojenie súborových systémov CephFS) atď. :
 
 ```sh
 cephadm add-repo --release pacific
 cephadm install ceph-common
 ```
 
-Potvrdime si, že príkaz ceph je prístupný, pomocou:
+Overíme si, že príkaz **ceph** je prístupný, pomocou:
 
 ```sh
 ceph -v
 ```
 
-Potvrdime si, že príkaz ceph sa môže pripojiť ku klastru a tiež jeho stavu pomocou:
+Overíme si, že príkaz ceph sa môže pripojiť ku klastru a tiež jeho stavu pomocou:
 
 ```sh
 ceph status
@@ -386,4 +386,4 @@ ceph status
 
 ## Záver
 
-A takto je môžné nasadiť plne funkčný klaster Ceph. Pri použití Cephu s kontajnermi je dôležitá flexibilita, hlavne z hľadiska upgradov, zlyhaní atď. Cephadm inštaluje a spravuje klaster Ceph pomocou kontajnerov a systemd, s integráciou s CLI a GUI dashboardu. Cephadm je plne integrovaný do nového orchestračného API a plne podporuje nové funkcie CLI a dashboard na správu nasadenia klastra.
+A takto je môžné nasadiť plne funkčný klaster Ceph. Pri použití Cephu s kontajnermi je dôležitá flexibilita, hlavne z hľadiska upgradov, zlyhaní atď. **Cephadm** inštaluje a spravuje klaster Ceph pomocou kontajnerov a systemd, s integráciou s CLI a GUI dashboardu. Cephadm je plne integrovaný do nového orchestračného API a plne podporuje nové funkcie CLI a dashboard na správu nasadenia klastra.

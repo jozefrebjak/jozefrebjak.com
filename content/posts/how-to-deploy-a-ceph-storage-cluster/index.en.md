@@ -5,7 +5,7 @@ resources:
     src: 'featured-image-en.png'
 categories: ['documentation']
 tags: ['ceph', 'installation']
-date: 2021-04-02T09:31:44+01:00
+date: 2021-04-10T09:31:44+01:00
 draft: false
 ---
 
@@ -26,7 +26,7 @@ A Ceph Storage Cluster consists of multiple types of daemons:
 
 A Ceph Monitor maintains a master copy of the cluster map. A cluster of Ceph monitors ensures high availability should a monitor daemon fail. Storage cluster clients retrieve a copy of the cluster map from the Ceph Monitor.
 
-**Ceph OSD Daemon** (ceph-osd)
+**Ceph OSD** (ceph-osd)
 
 A Ceph OSD Daemon checks its own state and the state of other OSDs and reports back to monitors.
 
@@ -38,7 +38,7 @@ A Ceph Manager acts as an endpoint for monitoring, orchestration, and plug-in mo
 
 A Ceph Metadata Server (MDS) manages file metadata when CephFS is used to provide file services.
 
-Storage cluster clients and each Ceph OSD Daemon use the CRUSH algorithm to efficiently compute information about data location, instead of having to depend on a central lookup table.
+Storage cluster clients and each Ceph OSD Daemon use the {{< link href="https://docs.ceph.com/en/latest/rados/operations/crush-map/" content=CRUSH >}} algorithm to efficiently compute information about data location, instead of having to depend on a central lookup table.
 
 {{< admonition type=info open=true >}}
 If you want to learn more, please check the official {{< link href="https://docs.ceph.com/en/latest/architecture/" content=documentation >}}.
