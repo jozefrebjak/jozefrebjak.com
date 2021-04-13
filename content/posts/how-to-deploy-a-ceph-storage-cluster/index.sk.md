@@ -48,13 +48,13 @@ Klienti úložiska Ceph a každý démon Ceph OSD používajú algoritmus {{< li
 Ak sa chcete dozvedieť viac, prosím prečítajte si oficiálnu {{< link href="https://docs.ceph.com/en/latest/architecture/" content=dokumentáciu >}}.
 {{< /admonition >}}
 
-Systém súborov, úložisko objektov a blokové zariadenia čítajú a zapisujú údaje do a a z úložného klastra. V predvolenom nastavení sú hranice hostiteľa najvyššou prioritou, pričom dve kópie sa uložia v OSD, ktoré sú na rôznych hostiteľoch.
+Systém súborov, úložisko objektov a blokové zariadenia čítajú a zapisujú údaje do a a z úložného klastra. V predvolenom nastavení sú hranice uzla najvyššou prioritou, pričom dve kópie sa uložia v OSD, ktoré sú na rôznych uzloch.
 
 Napríklad `block-1` bude existovať na uzloch `A`, `B` a `C`. Dôvod, prečo je také dôležité mať aspoň tri uzly, je taký aby bolo možné určiť integritu údajov, ktoré musí Ceph dosiahnuť. Ak sa `block-1` na uzle `A` poškodí, Ceph to dokáže zistiť a opraviť, pretože `block-1` na uzle `B` a `C` sa zhoduje s tým na uzle `A`.
 
 Ak sú uzly iba dva, potom je podstatne ťažšie a niekedy nemožné určiť, ktorý blok je v prípade sporu správny. To tiež znamená, že ak chceme `5TB` použiteľného úložiska, budeme potrebovať `15TB` surového (RAW) úložiska distribuovaného ako `5TB` na každom zo serverov Ceph.
 
-`OSD` maju vlastný formát disku, ktorý sa nazýva `Bluestore`, a priradenie OSD ID k bloku zariadenia sa dosahuje pomocou `LVM` a `Device Mapper`. To znamená, že ak nakoniec zamiešame disky v jednom systéme, OSD ID na blokoch zariadenia sa zachová. To je obzvlášť užitočné pri používaní diskov pripojených cez USB.
+`OSD` maju vlastný formát disku, ktorý sa nazýva `Bluestore` a priradenie OSD ID k bloku zariadenia sa dosahuje pomocou `LVM` a `Device Mapper`. To znamená, že ak nakoniec zamiešame disky v jednom systéme, OSD ID na blokoch zariadenia sa zachová. To je obzvlášť užitočné pri používaní diskov pripojených cez USB.
 
 ## Vytvorenie klastra Ceph Pacific
 
